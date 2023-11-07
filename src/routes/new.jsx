@@ -28,9 +28,9 @@ export async function action({ request, params }) {
         }),
     }
 
-    console.log(await postData(postObj));
+    const newBallot = await postData(postObj);
 
-    return redirect('/');
+    return redirect('/' + newBallot.pubId);
 }
 
 export default function NewBallot() {
