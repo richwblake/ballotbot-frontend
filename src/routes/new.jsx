@@ -45,7 +45,7 @@ export default function NewBallot() {
             const tf = 
             (<p key={i}>
                 <label>
-                    <span>Answer {i + 1}</span>
+                    <span>Response {i + 1}</span>
                     <input
                         type='text'
                         className='new-ballot-inp'
