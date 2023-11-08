@@ -73,7 +73,7 @@ export default function VoteBallot() {
     const renderResults = () => {
         return ballot.responses.map(r => (
             <div id='responses' key={r.pubId}>
-                <h2>{r.content}</h2>
+                <h2 className='response-title'>{r.content}</h2>
                 <p>Votes: {r.votes}</p>
             </div>));
     };

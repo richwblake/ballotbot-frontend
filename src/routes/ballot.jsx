@@ -28,7 +28,7 @@ export default function Ballot() {
     const renderResponses = responses => {
         return responses.map(r => (
             <div id='responses' key={r.pubId}>
-                <h3>{r.content}</h3>
+                <h2 className='response-title'>{r.content}</h2>
                 <p>Votes: {r.votes}</p>
             </div>));
     }
@@ -44,7 +44,7 @@ export default function Ballot() {
     return (
         <div id='ballot'>
             <h1>{ballot.title}</h1>
-            <p>{formatTimeLeft()}</p>
+            <p><i>{formatTimeLeft()}</i></p>
             {renderResponses(ballot.responses)}
         </div>
     );

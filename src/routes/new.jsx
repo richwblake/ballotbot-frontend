@@ -10,7 +10,13 @@ const postData = async postObject => {
 export async function action({ request, params }) {
     const formData = await request.formData();
     const ballotInfo = Object.fromEntries(formData);
-    console.log(ballotInfo);
+
+    let responses = [];
+    for (let key in ballotInfo) {
+        if (key.slice(0, 3) === 'ans') {
+            responses.push({ content: ballotInfo[key] });
+        }
+    }
 
     const postObj= {
         method: "POST",
@@ -20,14 +26,7 @@ export async function action({ request, params }) {
         body: JSON.stringify({
             title: ballotInfo.title,
             exp_s: parseInt(ballotInfo.timer) * 60,
-            responses: [
-                {
-                    content: ballotInfo.ans1,
-                },
-                {
-                    content: ballotInfo.ans2,
-                },
-            ],
+            responses,
         }),
     }
 
@@ -38,7 +37,7 @@ export async function action({ request, params }) {
 
 export default function NewBallot() {
 
-    const [numTextFields, setNumTextFields] = useState(5);
+    const [numTextFields, setNumTextFields] = useState(2);
 
     const renderTextFields = () => {
         let fields = [];
@@ -61,6 +60,11 @@ export default function NewBallot() {
         return fields;
     };
 
+    const handleAddField = e => {
+        e.preventDefault();
+        setNumTextFields(prev => prev + 1);
+    }
+
     return (
         <Form method='post' id='ballot-form'>
             <p>
@@ -75,6 +79,7 @@ export default function NewBallot() {
                 </label>
             </p>
             {renderTextFields()}
+            <button onClick={handleAddField} id="add-field-btn">Add another response</button>
             <p>
                 <label>
                     <span>Time limit in minutes</span>
