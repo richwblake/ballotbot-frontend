@@ -38,7 +38,28 @@ export async function action({ request, params }) {
 
 export default function NewBallot() {
 
-    const numTextFields = useState(0);
+    const [numTextFields, setNumTextFields] = useState(5);
+
+    const renderTextFields = () => {
+        let fields = [];
+        for (let i = 0; i < numTextFields; ++i) {
+            const tf = 
+            (<p key={i}>
+                <label>
+                    <span>Answer {i + 1}</span>
+                    <input
+                        type='text'
+                        className='new-ballot-inp'
+                        name={'ans' + (i + 1)}
+                    />
+                </label>
+            </p>);
+
+            fields.push(tf);
+        }
+        
+        return fields;
+    };
 
     return (
         <Form method='post' id='ballot-form'>
@@ -53,28 +74,7 @@ export default function NewBallot() {
                     />
                 </label>
             </p>
-            <p>
-                <label>
-                    <span>Answer 1</span>
-                    <input
-                        type='text'
-                        className='new-ballot-inp'
-                        name='ans1'
-                        placeholder='Flemings'
-                    />
-                </label>
-            </p>
-            <p>
-                <label>
-                    <span>Answer 2</span>
-                    <input
-                        type='text'
-                        className='new-ballot-inp'
-                        name='ans2'
-                        placeholder='Oceanprime'
-                    />
-                </label>
-            </p>
+            {renderTextFields()}
             <p>
                 <label>
                     <span>Time limit in minutes</span>
@@ -86,7 +86,7 @@ export default function NewBallot() {
                 </label>
             </p>
             <p>
-                <button type='submit'>Create Ballot</button>
+                <button id='create-ballot-btn' type='submit'>Create Ballot</button>
             </p>
         </Form>
     );

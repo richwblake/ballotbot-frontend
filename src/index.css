@@ -86,3 +86,17 @@ li:hover {
 #responses p {
     font-weight: bold;
 }
+
+#create-ballot-btn {
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    padding: 6px 8px;
+    color: #F39F5A;
+    text-decoration: none;
+    background-color: #AE445A;
+}
+
+#create-ballot-btn:hover {
+    background-color: #662549;
+}
