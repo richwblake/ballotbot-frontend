@@ -1,4 +1,5 @@
 import { Form, redirect } from 'react-router-dom';
+import { useState } from 'react';
 
 const postData = async postObject => {
     const response = await fetch('http://localhost:3000/polls', postObject);
@@ -9,6 +10,7 @@ const postData = async postObject => {
 export async function action({ request, params }) {
     const formData = await request.formData();
     const ballotInfo = Object.fromEntries(formData);
+    console.log(ballotInfo);
 
     const postObj= {
         method: "POST",
@@ -17,6 +19,7 @@ export async function action({ request, params }) {
         },
         body: JSON.stringify({
             title: ballotInfo.title,
+            exp_s: parseInt(ballotInfo.timer) * 60,
             responses: [
                 {
                     content: ballotInfo.ans1,
@@ -34,6 +37,9 @@ export async function action({ request, params }) {
 }
 
 export default function NewBallot() {
+
+    const numTextFields = useState(0);
+
     return (
         <Form method='post' id='ballot-form'>
             <p>
@@ -41,6 +47,7 @@ export default function NewBallot() {
                     <span>Title</span>
                     <input
                         type='text'
+                        className='new-ballot-inp'
                         name='title'
                         placeholder='Where should we eat lunch?'
                     />
@@ -51,6 +58,7 @@ export default function NewBallot() {
                     <span>Answer 1</span>
                     <input
                         type='text'
+                        className='new-ballot-inp'
                         name='ans1'
                         placeholder='Flemings'
                     />
@@ -61,9 +69,20 @@ export default function NewBallot() {
                     <span>Answer 2</span>
                     <input
                         type='text'
+                        className='new-ballot-inp'
                         name='ans2'
                         placeholder='Oceanprime'
                     />
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span>Time limit in minutes</span>
+                    <select name="timer" className='new-ballot-inp'>
+                        <option value="5">5 minutes</option>
+                        <option value="10">10 minutes</option>
+                        <option value="20">20 minutes</option>
+                    </select>                                    
                 </label>
             </p>
             <p>

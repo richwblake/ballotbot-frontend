@@ -44,12 +44,30 @@ li:hover {
 }
 
 #ballot-form {
-    text-align: center;
     margin: 2rem auto;
     padding: 50px;
     border: 1px solid #F39F5A;
     border-radius: 5px;
-    width: fit-content;
+    width: 30%;
+}
+
+.new-ballot-inp {
+    float: right;
+    width: 200px;
+    color: #F39F5A;
+    padding: 5px;
+    background: none;
+    border: 1px solid #F39F5A;
+    border-radius: 5px;
+}
+
+.responses-radio {
+    margin: 8px 4px;
+}
+
+::placeholder {
+    color: #F39F5A;
+    opacity: 0.5;
 }
 
 #ballot {
