@@ -7,7 +7,13 @@ import {
 import Root from './routes/Root';
 import ErrorPage from './error-page';
 import NewBallot, { action as newAction } from './routes/new';
-import Ballot, { loader as ballotLoader } from './routes/ballot';
+import Ballot, { 
+    loader as ballotLoader 
+} from './routes/ballot';
+import VoteBallot, { 
+    loader as voteBallotLoader, 
+    action as voteBallotAction 
+} from './routes/edit';
 import './index.css'
 
 const router = createBrowserRouter([
@@ -25,6 +31,12 @@ const router = createBrowserRouter([
                 path: '/:ballotId',
                 loader: ballotLoader,
                 element: <Ballot />,
+            },
+            {
+                path: '/vote/:ballotId',
+                action: voteBallotAction,
+                loader: voteBallotLoader,
+                element: <VoteBallot />,
             },
         ]
     },

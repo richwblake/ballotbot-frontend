@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body {
-    margin: 0;
     background-color: #451952;
     font-family: 'Ubuntu', sans-serif;
     color: #F39F5A;
@@ -51,4 +50,21 @@ li:hover {
     border: 1px solid #F39F5A;
     border-radius: 5px;
     width: fit-content;
+}
+
+#ballot {
+    margin: 2rem auto;
+    border: 1px solid #F39F5A;
+    border-radius: 5px;
+    padding: 20px;
+    width: fit-content;
+}
+
+#ballot h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+#responses p {
+    font-weight: bold;
 }

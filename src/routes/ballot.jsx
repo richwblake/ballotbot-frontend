@@ -11,16 +11,19 @@ const fetchBallotById = async id => {
 }
 
 const renderResponses = responses => {
-    return responses.map(r => <p key={r.pubId}>{r.content}</p>);
+    return responses.map(r => (
+        <div id='responses' key={r.pubId}>
+            <h3>{r.content}</h3>
+            <p>Votes: {r.votes}</p>
+        </div>));
 }
 
 export default function Ballot() {
 
     const ballot = useLoaderData();
-    console.log(ballot);
 
     return (
-        <div>
+        <div id='ballot'>
             <h1>{ballot.title}</h1>
             {renderResponses(ballot.responses)}
         </div>

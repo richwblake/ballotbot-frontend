@@ -30,7 +30,7 @@ export async function action({ request, params }) {
 
     const newBallot = await postData(postObj);
 
-    return redirect('/' + newBallot.pubId);
+    return redirect('/vote/' + newBallot.pubId);
 }
 
 export default function NewBallot() {
