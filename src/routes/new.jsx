@@ -43,20 +43,18 @@ export default function NewBallot() {
         let fields = [];
         for (let i = 0; i < numTextFields; ++i) {
             const tf = 
-            (<p key={i}>
-                <label>
-                    <span>Response {i + 1}</span>
+                (<div className='response-field' key={i}>
+                    <span className='new-form-label'>Response {i + 1}</span>
                     <input
                         type='text'
                         className='new-ballot-inp'
                         name={'ans' + (i + 1)}
                     />
-                </label>
-            </p>);
+                </div>);
 
             fields.push(tf);
         }
-        
+
         return fields;
     };
 
@@ -67,29 +65,28 @@ export default function NewBallot() {
 
     return (
         <Form method='post' id='ballot-form'>
-            <p>
-                <label>
-                    <span>Title</span>
+            <div className='response-container'>
+                <div className='response-field'>
+                    <span className='new-form-label'>Title</span>
                     <input
                         type='text'
                         className='new-ballot-inp'
                         name='title'
                         placeholder='Where should we eat lunch?'
                     />
-                </label>
-            </p>
-            {renderTextFields()}
+                </div>
+                {renderTextFields()}
+            </div>
             <button onClick={handleAddField} id="add-field-btn">Add another response</button>
-            <p>
-                <label>
-                    <span>Time limit in minutes</span>
-                    <select name="timer" className='new-ballot-inp'>
-                        <option value="5">5 minutes</option>
-                        <option value="10">10 minutes</option>
-                        <option value="20">20 minutes</option>
-                    </select>                                    
-                </label>
-            </p>
+            <div className='response-field'>
+                <span className='new-form-label'>Time limit in minutes</span>
+                <select name="timer" className='new-ballot-inp'>
+                    <option value="1">1 MINUTE DEBUG</option>
+                    <option value="5">5 minutes</option>
+                    <option value="10">10 minutes</option>
+                    <option value="20">20 minutes</option>
+                </select>                                    
+            </div>
             <p>
                 <button id='create-ballot-btn' type='submit'>Create Ballot</button>
             </p>

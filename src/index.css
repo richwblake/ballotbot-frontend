@@ -54,19 +54,18 @@ li:hover {
 
 #ballot-form {
     margin: 2rem auto;
-    padding: 50px;
-    border: 1px solid #1B4965;
+    padding: 20px;
+    border: 5px solid #1B4965;
     border-radius: 5px;
-    width: 30%;
+    width: 60%;
 }
 
 .new-ballot-inp {
-    float: right;
-    width: 300px;
-    color: #5FA8D3;
+    color: #1B4965;
+    width: 500px;
     padding: 5px;
     background: none;
-    border: 1px solid #1B4965;
+    border: 2px solid #1B4965;
     border-radius: 5px;
 }
 
@@ -92,8 +91,12 @@ li:hover {
     margin-bottom: 3rem;
 }
 
-#responses p {
+.responses p {
     font-weight: bold;
+}
+
+.responses span {
+    font-size: 1.2rem;
 }
 
 .responses {
@@ -104,7 +107,19 @@ li:hover {
     margin: 10px 5px;
 }
 
-#create-ballot-btn, #add-field-btn {
+.response-field {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.new-form-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#create-ballot-btn, #add-field-btn, #vote-btn {
     border-radius: 5px;
     border: none;
     font-size: 16px;
@@ -116,11 +131,17 @@ li:hover {
     margin: auto;
 }
 
-#create-ballot-btn:hover, #add-field-btn:hover {
+#create-ballot-btn:hover, #add-field-btn:hover, #vote-btn:hover {
     background-color: white;
 }
 
 
 #add-field-btn {
     margin-bottom: 20px;
+}
+
+#time-left {
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
