@@ -1,5 +1,6 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
+import ShowBallot from '../components/showBallot';
 
 export async function loader({ params }) {
     return await fetchBallotById(params.ballotId);
@@ -69,15 +70,6 @@ export default function VoteBallot() {
             </div>));
     };
 
-
-    const renderResults = () => {
-        return ballot.responses.map(r => (
-            <div className='responses' key={r.pubId}>
-                <h2 className='response-title'>{r.content}</h2>
-                <p>Votes: {r.votes}</p>
-            </div>));
-    };
-
     const formatTimeLeft = () => {
         if (secondsLeft <= 0) {
             return "Ballot closed!";
@@ -85,12 +77,22 @@ export default function VoteBallot() {
         return `Ballot closes in ${Math.floor(secondsLeft / 60)}:${secondsLeft % 60 < 10 ? "0" + secondsLeft % 60 : secondsLeft % 60}`;
     };
 
+    const renderFormOrShowBallot = () => {
+        if (ballotIsOpen) {
+            return (
+                <Form method='post' id='ballot'>
+                    <h1>{ballot.title}</h1>
+                    <p id='time-left'>{formatTimeLeft()}</p>
+                    {renderChoices()}
+                    <button type='submit' id='vote-btn'>Cast Vote</button>
+                </Form>
+            );
+        } else {
+            return <ShowBallot ballot={ballot} />
+        }
+    };
+
     return (
-        <Form method='post' id='ballot'>
-            <h1>{ballot.title}</h1>
-            <p><i>{formatTimeLeft()}</i></p>
-            {ballotIsOpen ? renderChoices() : renderResults()}
-            {ballotIsOpen ? <button type='submit' id='vote-btn'>Cast Vote</button> : ""}
-        </Form>
+        renderFormOrShowBallot()
     );
 }
