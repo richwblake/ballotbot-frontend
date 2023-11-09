@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Kalam:wght@300&display=swap');
+
+/* BEE9E8 MINT GREEN */    
+/* 62B6CB MOONSTONE */
+/* 1B4965 INDIGO DYE */
+/* CAE9FF COLUMBIA BLUE */
+/* 5FA8D3 PICTON BLUE */
 
 body {
-    background-color: #451952;
-    font-family: 'Ubuntu', sans-serif;
-    color: #F39F5A;
+    background-color: #CAE9FF;
+    font-family: 'Cinzel', serif;
+    color: #5FA8D3;
 }
 
 header {
@@ -12,6 +19,7 @@ header {
 
 #title {
     margin: 0 auto;
+    text-decoration: underline;
     padding: 2rem;
 }
 
@@ -20,7 +28,7 @@ header {
     margin: 5px auto;
     padding: 0;
     border-radius: 5px;
-    background-color: #AE445A;
+    background-color: #1B4965;
     width: 200px;
 }
 
@@ -35,29 +43,30 @@ li {
 }
 
 li a {
-    color: #F39F5A;
+    color: #5FA8D3;
     text-decoration: none;
 }
 
 li:hover {
-    background-color: #662549;
+    background-color: white;
+    border-radius: 5px;
 }
 
 #ballot-form {
     margin: 2rem auto;
     padding: 50px;
-    border: 1px solid #F39F5A;
+    border: 1px solid #1B4965;
     border-radius: 5px;
     width: 30%;
 }
 
 .new-ballot-inp {
     float: right;
-    width: 200px;
-    color: #F39F5A;
+    width: 300px;
+    color: #5FA8D3;
     padding: 5px;
     background: none;
-    border: 1px solid #F39F5A;
+    border: 1px solid #1B4965;
     border-radius: 5px;
 }
 
@@ -66,13 +75,13 @@ li:hover {
 }
 
 ::placeholder {
-    color: #F39F5A;
+    color: #1B4965;
     opacity: 0.5;
 }
 
 #ballot {
     margin: 2rem auto;
-    border: 1px solid #F39F5A;
+    border: 4px solid #1B4965;
     border-radius: 5px;
     padding: 20px;
     width: fit-content;
@@ -87,16 +96,31 @@ li:hover {
     font-weight: bold;
 }
 
-#create-ballot-btn {
+.responses {
+    border: 1px solid white;
+    padding: 0 15px;
+    background: white;
+    border-radius: 5px;
+    margin: 10px 5px;
+}
+
+#create-ballot-btn, #add-field-btn {
     border-radius: 5px;
     border: none;
     font-size: 16px;
     padding: 6px 8px;
-    color: #F39F5A;
+    color: #5FA8D3;
     text-decoration: none;
-    background-color: #AE445A;
+    background-color: #1B4965;
+    width: fit-content;
+    margin: auto;
 }
 
-#create-ballot-btn:hover {
-    background-color: #662549;
+#create-ballot-btn:hover, #add-field-btn:hover {
+    background-color: white;
+}
+
+
+#add-field-btn {
+    margin-bottom: 20px;
 }
