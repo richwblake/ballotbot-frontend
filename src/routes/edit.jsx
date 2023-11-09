@@ -64,7 +64,7 @@ export default function VoteBallot() {
 
     const renderChoices = () => {
         return ballot.responses.map(r => (
-            <div id='responses' key={r.pubId}>
+            <div className='responses' key={r.pubId}>
                 <input className="responses-radio" value={r.pubId} type='radio' name='picked' /><span>{r.content}</span>
             </div>));
     };
@@ -72,7 +72,7 @@ export default function VoteBallot() {
 
     const renderResults = () => {
         return ballot.responses.map(r => (
-            <div id='responses' key={r.pubId}>
+            <div className='responses' key={r.pubId}>
                 <h2 className='response-title'>{r.content}</h2>
                 <p>Votes: {r.votes}</p>
             </div>));
