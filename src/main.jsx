@@ -4,7 +4,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from 'react-router-dom';
-import Root from './routes/Root';
+import Root from './routes/root';
 import ErrorPage from './error-page';
 import NewBallot, { action as newAction } from './routes/new';
 import Ballot, { 
