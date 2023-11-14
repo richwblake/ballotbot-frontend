@@ -2,7 +2,7 @@ import { Form, redirect } from 'react-router-dom';
 import { useState } from 'react';
 
 const postData = async postObject => {
-    const response = await fetch('http://localhost:3000/polls', postObject);
+    const response = await fetch(import.meta.env.VITE_API_ROOT + '/polls', postObject);
     const json = await response.json();
     return json;
 }
@@ -36,6 +36,8 @@ export async function action({ request, params }) {
 }
 
 export default function NewBallot() {
+
+    console.log(import.meta.env);
 
     const [numTextFields, setNumTextFields] = useState(2);
 

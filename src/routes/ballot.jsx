@@ -7,7 +7,7 @@ export async function loader({ params }) {
 }
 
 const fetchBallotById = async id => {
-    const response = await fetch("http://localhost:3000/polls/" + id);
+    const response = await fetch(import.meta.env.VITE_API_ROOT + "/polls/" + id);
     const json = await response.json();
     return json; 
 }

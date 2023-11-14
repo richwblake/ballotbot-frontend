@@ -26,7 +26,7 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
         body: JSON.stringify(patchBody),
     };
 
-    const response = await fetch("http://localhost:3000/polls/" + ballotId, patchObject);
+    const response = await fetch(import.meta.env.VITE_API_ROOT + "/polls/" + ballotId, patchObject);
 
     return redirect("/" + ballotId);
 }
