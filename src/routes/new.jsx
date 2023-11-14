@@ -37,8 +37,6 @@ export async function action({ request, params }) {
 
 export default function NewBallot() {
 
-    console.log(import.meta.env);
-
     const [numTextFields, setNumTextFields] = useState(2);
 
     const renderTextFields = () => {
