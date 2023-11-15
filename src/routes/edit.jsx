@@ -1,6 +1,7 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import ShowBallot from '../components/showBallot';
+import ClipboardButton from '../components/clipboardButton';
 
 export async function loader({ params }) {
     return await fetchBallotById(params.ballotId);
@@ -82,6 +83,7 @@ export default function VoteBallot() {
             return (
                 <Form method='post' id='ballot'>
                     <h1>{ballot.title}</h1>
+                    <ClipboardButton />
                     <p id='time-left'>{formatTimeLeft()}</p>
                     {renderChoices()}
                     <button type='submit' id='vote-btn'>Cast Vote</button>
