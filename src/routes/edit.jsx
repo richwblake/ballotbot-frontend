@@ -33,7 +33,7 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
     return redirect("/" + ballotId);
 }
 
-export default function VoteBallot() {
+export default function EditBallot() {
 
     const ballot = useLoaderData();
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
