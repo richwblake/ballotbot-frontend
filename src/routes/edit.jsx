@@ -37,7 +37,6 @@ export default function VoteBallot() {
 
     const ballot = useLoaderData();
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
-    const [ballotIsOpen, setBallotIsOpen] = useState(ballot.exp_s > ballot.seconds_since_creation);
 
     let intervalRef = useRef();
 
@@ -50,7 +49,6 @@ export default function VoteBallot() {
     useEffect(() => {
         if (secondsLeft <= 0) {
             setSecondsLeft(0);
-            setBallotIsOpen(false);
             clearInterval(intervalRef.current);
         }
     }, [secondsLeft]);
@@ -63,7 +61,7 @@ export default function VoteBallot() {
     };
 
     const renderFormOrShowBallot = () => {
-        if (ballotIsOpen) {
+        if (secondsLeft <= 0) {
             return (
                 <Form method='post' id='ballot'>
                     <h1>{ballot.title}</h1>
