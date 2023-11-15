@@ -1,6 +1,6 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
-import ShowBallot from '../components/showBallot';
+import Ballot from '../components/Ballot';
 import ClipboardButton from '../components/clipboardButton';
 import { fetchBallotById, formatTimeLeft } from '../utils';
 
@@ -59,9 +59,10 @@ export default function EditBallot() {
                 <input className="responses-radio" value={r.pubId} type='radio' name='picked' /><span>{r.content}</span>
             </div>));
     };
+    console.log(secondsLeft);
 
     const renderFormOrShowBallot = () => {
-        if (secondsLeft <= 0) {
+        if (secondsLeft > 0) {
             return (
                 <Form method='post' id='ballot'>
                     <h1>{ballot.title}</h1>
@@ -72,7 +73,7 @@ export default function EditBallot() {
                 </Form>
             );
         } else {
-            return <ShowBallot ballot={ballot} />
+            return <Ballot ballot={ballot} />
         }
     };
 

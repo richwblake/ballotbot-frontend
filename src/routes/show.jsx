@@ -1,16 +1,16 @@
 import { useLoaderData } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { fetchBallotById } from '../utils';
-import ShowBallot from '../components/showBallot';
+import Ballot from '../components/Ballot';
 
 export async function loader({ params }) {
     return await fetchBallotById(params.ballotId);
 }
 
-export default function Ballot() {
+export default function ShowBallot() {
     const ballot = useLoaderData();
 
     return (
-        <ShowBallot ballot={ballot} />
+        <Ballot ballot={ballot} />
     );
 }

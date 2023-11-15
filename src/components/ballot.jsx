@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import ClipboardButton from './clipboardButton';
 import { formatTimeLeft } from '../utils';
 
-export default function ShowBallot({ ballot }) {
+export default function Ballot({ ballot }) {
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
 
     let intervalRef = useRef();
