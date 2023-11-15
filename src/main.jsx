@@ -9,7 +9,7 @@ import ErrorPage from './error-page';
 import NewBallot, { action as newAction } from './routes/new';
 import Ballot, { 
     loader as ballotLoader 
-} from './routes/ballot';
+} from './routes/show';
 import VoteBallot, { 
     loader as voteBallotLoader, 
     action as voteBallotAction 

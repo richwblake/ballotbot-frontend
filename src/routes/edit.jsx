@@ -2,6 +2,7 @@ import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import ShowBallot from '../components/showBallot';
 import ClipboardButton from '../components/clipboardButton';
+import { fetchBallotById, formatTimeLeft } from '../utils';
 
 export async function loader({ params }) {
     return await fetchBallotById(params.ballotId);
@@ -32,26 +33,16 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
     return redirect("/" + ballotId);
 }
 
-const fetchBallotById = async id => {
-    const response = await fetch(import.meta.env.VITE_API_ROOT + "/polls/" + id);
-    const json = await response.json();
-    return json; 
-}
-
-
 export default function VoteBallot() {
 
     const ballot = useLoaderData();
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
     const [ballotIsOpen, setBallotIsOpen] = useState(ballot.exp_s > ballot.seconds_since_creation);
 
-    const decrease = () => {
-        setSecondsLeft(prev => prev - 1);
-    }
     let intervalRef = useRef();
 
     useEffect(() => {
-        intervalRef.current = setInterval(decrease, 1000);
+        intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
 
         return () => clearInterval(intervalRef.current);
     }, []);
@@ -71,20 +62,13 @@ export default function VoteBallot() {
             </div>));
     };
 
-    const formatTimeLeft = () => {
-        if (secondsLeft <= 0) {
-            return "Ballot closed!";
-        }
-        return `Ballot closes in ${Math.floor(secondsLeft / 60)}:${secondsLeft % 60 < 10 ? "0" + secondsLeft % 60 : secondsLeft % 60}`;
-    };
-
     const renderFormOrShowBallot = () => {
         if (ballotIsOpen) {
             return (
                 <Form method='post' id='ballot'>
                     <h1>{ballot.title}</h1>
                     <ClipboardButton />
-                    <p id='time-left'>{formatTimeLeft()}</p>
+                    <p id='time-left'>{formatTimeLeft(secondsLeft)}</p>
                     {renderChoices()}
                     <button type='submit' id='vote-btn'>Cast Vote</button>
                 </Form>
