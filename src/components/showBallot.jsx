@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import ClipboardButton from './clipboardButton';
 
 export default function ShowBallot({ ballot }) {
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
@@ -30,6 +31,7 @@ export default function ShowBallot({ ballot }) {
     return (
         <div id='ballot'>
             <h1>{ballot.title}</h1>
+            <ClipboardButton />
             <p id='time-left'>{formatTimeLeft()}</p>
             {renderResponses(ballot.responses)}
         </div>

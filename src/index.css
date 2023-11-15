@@ -88,7 +88,6 @@ li:hover {
 
 #ballot h1 {
     text-align: center;
-    margin-bottom: 3rem;
 }
 
 .responses p {
@@ -119,7 +118,8 @@ li:hover {
     font-weight: bold;
 }
 
-#create-ballot-btn, #add-field-btn, #vote-btn {
+#create-ballot-btn, #add-field-btn, #vote-btn, #clipboard-btn {
+    font-family: 'Cinzel', serif;
     border-radius: 5px;
     border: none;
     font-size: 16px;
@@ -144,4 +144,9 @@ li:hover {
     font-style: italic;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+#clip-btn-container {
+    width: fit-content;
+    margin: 0 auto;
 }
