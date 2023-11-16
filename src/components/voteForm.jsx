@@ -1,22 +1,36 @@
-import { fetchBallotById, formatTimeLeft } from '../utils';
+import { formatTimeLeft } from '../utils';
 import { useState, useRef, useEffect } from 'react';
 import { Form } from 'react-router-dom';
 import ClipboardButton from '../components/clipboardButton';
 import Ballot from '../components/ballot';
 
-export default function VoteForm({ id }) {    
+export default function VoteForm({ ballot }) {    
 
-    const [ballot, setBallot] = useState({ pubId: null, title: "", seconds_since_creation: null, exp_s: null, responses: [] });
-    const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
-    const [timeRunning, setTimeRunning] = useState(false);
+    const calculateExpiry = ballot => {
+        const secondsSinceCreation = Math.floor((new Date() - new Date(ballot.created_utc)) / 1000);
+        
+        const timeLeft = ballot.exp_s - secondsSinceCreation;
+
+        return timeLeft <= 0 ? 0 : timeLeft;
+    };
+
+    const [secondsLeft, setSecondsLeft] = useState(1);
+
+    console.log(secondsLeft);
 
     let intervalRef = useRef();
 
+    // const debug = {
+    //     ballot_created: new Date(ballot.created_utc),
+    //     now: new Date(),
+    // };
+    // console.log("Ballot created at: " + debug.ballot_created);
+    // console.log("Right now: " + debug.now);
+    // console.log("Time since creation in seconds: " + (debug.now - debug.ballot_created) / 1000);
+
+
     useEffect(() => {
-        async function fetchData() {
-            setBallot(await fetchBallotById(id));
-        }
-        fetchData();
+        intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
 
         return () => clearInterval(intervalRef.current);
     }, []);
@@ -28,13 +42,6 @@ export default function VoteForm({ id }) {
         }
     }, [secondsLeft]);
 
-    useEffect(() => {
-        setSecondsLeft(ballot.exp_s - ballot.seconds_since_creation);
-        if (!timeRunning) {
-            intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
-            setTimeRunning(true);
-        }
-    }, [ballot]);
 
     const renderChoices = () => {
         return ballot.responses.map(r => (

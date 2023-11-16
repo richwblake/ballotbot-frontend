@@ -37,5 +37,5 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
 export default function EditBallot() {
     const ballot = useLoaderData();
 
-    return <VoteForm id={ballot.pubId} />;
+    return <VoteForm ballot={ballot} />;
 }
