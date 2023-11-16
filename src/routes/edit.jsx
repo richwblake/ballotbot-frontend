@@ -1,6 +1,7 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import Ballot from '../components/Ballot';
+import VoteForm from '../components/VoteForm';
 import ClipboardButton from '../components/clipboardButton';
 import { fetchBallotById, formatTimeLeft } from '../utils';
 
@@ -34,50 +35,7 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
 }
 
 export default function EditBallot() {
-
     const ballot = useLoaderData();
-    const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
 
-    let intervalRef = useRef();
-
-    useEffect(() => {
-        intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
-
-        return () => clearInterval(intervalRef.current);
-    }, []);
-
-    useEffect(() => {
-        if (secondsLeft <= 0) {
-            setSecondsLeft(0);
-            clearInterval(intervalRef.current);
-        }
-    }, [secondsLeft]);
-
-    const renderChoices = () => {
-        return ballot.responses.map(r => (
-            <div className='responses' key={r.pubId}>
-                <input className="responses-radio" value={r.pubId} type='radio' name='picked' /><span>{r.content}</span>
-            </div>));
-    };
-    console.log(secondsLeft);
-
-    const renderFormOrShowBallot = () => {
-        if (secondsLeft > 0) {
-            return (
-                <Form method='post' id='ballot'>
-                    <h1>{ballot.title}</h1>
-                    <ClipboardButton />
-                    <p id='time-left'>{formatTimeLeft(secondsLeft)}</p>
-                    {renderChoices()}
-                    <button type='submit' id='vote-btn'>Cast Vote</button>
-                </Form>
-            );
-        } else {
-            return <Ballot ballot={ballot} />
-        }
-    };
-
-    return (
-        renderFormOrShowBallot()
-    );
+    return <VoteForm id={ballot.pubId} />;
 }

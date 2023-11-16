@@ -11,6 +11,6 @@ export default function ShowBallot() {
     const ballot = useLoaderData();
 
     return (
-        <Ballot ballot={ballot} />
+        <Ballot id={ballot.pubId} />
     );
 }

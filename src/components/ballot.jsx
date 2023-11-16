@@ -1,17 +1,31 @@
 import { useState, useRef, useEffect } from 'react';
 import ClipboardButton from './clipboardButton';
-import { formatTimeLeft } from '../utils';
+import { fetchBallotById, formatTimeLeft } from '../utils';
 
-export default function Ballot({ ballot }) {
+export default function Ballot({ id }) {
+
+    const [ballot, setBallot] = useState({ pubId: null, title: "", seconds_since_creation: null, exp_s: null, responses: [] });
     const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
-
+    const [timeRunning, setTimeRunning] = useState(false);
     let intervalRef = useRef();
 
     useEffect(() => {
-        intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
+        async function fetchData() {
+            setBallot(await fetchBallotById(id));
+        }
+        fetchData();
 
         return () => clearInterval(intervalRef.current);
     }, []);
+
+    useEffect(() => {
+        setSecondsLeft(ballot.exp_s - ballot.seconds_since_creation);
+        if (!timeRunning) {
+            intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
+            setTimeRunning(true)
+        }
+    }, [ballot]);
+
 
     const renderResponses = responses => {
         return responses.map(r => (
