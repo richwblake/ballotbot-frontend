@@ -118,7 +118,7 @@ li:hover {
     font-weight: bold;
 }
 
-#create-ballot-btn, #add-field-btn, #vote-btn, #clipboard-btn {
+#create-ballot-btn, .change-field-btn, #vote-btn, #clipboard-btn {
     font-family: 'Cinzel', serif;
     border-radius: 5px;
     border: none;
@@ -136,8 +136,9 @@ li:hover {
 }
 
 
-#add-field-btn {
+.change-field-btn {
     margin-bottom: 20px;
+    margin-right: 10px;
 }
 
 #time-left {
