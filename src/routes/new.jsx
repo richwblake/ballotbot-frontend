@@ -3,13 +3,19 @@ import { useState } from 'react';
 
 const postData = async postObject => {
     const response = await fetch(import.meta.env.VITE_API_ROOT + '/polls', postObject);
-    const json = await response.json();
-    return json;
+    return await response.json();
 }
 
 export async function action({ request, params }) {
     const formData = await request.formData();
     const ballotInfo = Object.fromEntries(formData);
+    
+    for (let key in ballotInfo) {
+        if (ballotInfo[key] === "") {
+            console.log("Empty field detected at key: " + key);
+            return "";
+        }
+    }
 
     let responses = [];
     for (let key in ballotInfo) {
@@ -46,6 +52,7 @@ export default function NewBallot() {
                 (<div className='response-field' key={i}>
                     <span className='new-form-label'>Response {i + 1}</span>
                     <input
+                        required
                         type='text'
                         className='new-ballot-inp'
                         name={'ans' + (i + 1)}
@@ -63,12 +70,18 @@ export default function NewBallot() {
         setNumTextFields(prev => prev + 1);
     }
 
+    const handleDeleteField = e => {
+        e.preventDefault();
+        setNumTextFields(prev => prev - 1);
+    };
+
     return (
         <Form method='post' id='ballot-form'>
             <div className='response-container'>
                 <div className='response-field'>
                     <span className='new-form-label'>Title</span>
                     <input
+                        required
                         type='text'
                         className='new-ballot-inp'
                         name='title'
@@ -77,7 +90,10 @@ export default function NewBallot() {
                 </div>
                 {renderTextFields()}
             </div>
-            <button onClick={handleAddField} id="add-field-btn">Add another response</button>
+            <button onClick={handleAddField} className="change-field-btn">Add another response</button>
+            {numTextFields > 2 ? (
+                <button onClick={handleDeleteField} className="change-field-btn">Remove Response</button>
+            ) : ""}
             <div className='response-field'>
                 <span className='new-form-label'>Time limit in minutes</span>
                 <select name="timer" className='new-ballot-inp'>
