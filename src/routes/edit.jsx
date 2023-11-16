@@ -1,7 +1,9 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
-import ShowBallot from '../components/showBallot';
+import Ballot from '../components/Ballot';
+import VoteForm from '../components/VoteForm';
 import ClipboardButton from '../components/clipboardButton';
+import { fetchBallotById, formatTimeLeft } from '../utils';
 
 export async function loader({ params }) {
     return await fetchBallotById(params.ballotId);
@@ -32,69 +34,8 @@ const updateResponsePatchRequest = async (ballotId, responseId) => {
     return redirect("/" + ballotId);
 }
 
-const fetchBallotById = async id => {
-    const response = await fetch(import.meta.env.VITE_API_ROOT + "/polls/" + id);
-    const json = await response.json();
-    return json; 
-}
-
-
-export default function VoteBallot() {
-
+export default function EditBallot() {
     const ballot = useLoaderData();
-    const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
-    const [ballotIsOpen, setBallotIsOpen] = useState(ballot.exp_s > ballot.seconds_since_creation);
 
-    const decrease = () => {
-        setSecondsLeft(prev => prev - 1);
-    }
-    let intervalRef = useRef();
-
-    useEffect(() => {
-        intervalRef.current = setInterval(decrease, 1000);
-
-        return () => clearInterval(intervalRef.current);
-    }, []);
-
-    useEffect(() => {
-        if (secondsLeft <= 0) {
-            setSecondsLeft(0);
-            setBallotIsOpen(false);
-            clearInterval(intervalRef.current);
-        }
-    }, [secondsLeft]);
-
-    const renderChoices = () => {
-        return ballot.responses.map(r => (
-            <div className='responses' key={r.pubId}>
-                <input className="responses-radio" value={r.pubId} type='radio' name='picked' /><span>{r.content}</span>
-            </div>));
-    };
-
-    const formatTimeLeft = () => {
-        if (secondsLeft <= 0) {
-            return "Ballot closed!";
-        }
-        return `Ballot closes in ${Math.floor(secondsLeft / 60)}:${secondsLeft % 60 < 10 ? "0" + secondsLeft % 60 : secondsLeft % 60}`;
-    };
-
-    const renderFormOrShowBallot = () => {
-        if (ballotIsOpen) {
-            return (
-                <Form method='post' id='ballot'>
-                    <h1>{ballot.title}</h1>
-                    <ClipboardButton />
-                    <p id='time-left'>{formatTimeLeft()}</p>
-                    {renderChoices()}
-                    <button type='submit' id='vote-btn'>Cast Vote</button>
-                </Form>
-            );
-        } else {
-            return <ShowBallot ballot={ballot} />
-        }
-    };
-
-    return (
-        renderFormOrShowBallot()
-    );
+    return <VoteForm ballot={ballot} />;
 }

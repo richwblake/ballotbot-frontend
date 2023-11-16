@@ -29,7 +29,7 @@ export default function ClipboardButton() {
 
     return (
         <div id='clip-btn-container'>
-            <button onClick={handleClick} id='clipboard-btn'>{buttonText}</button>;
+            <button onClick={handleClick} id='clipboard-btn'>{buttonText}</button>
         </div>
     );
 }

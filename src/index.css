@@ -150,3 +150,7 @@ li:hover {
     width: fit-content;
     margin: 0 auto;
 }
+
+#intro-message {
+    font-size: 1.5rem;
+}

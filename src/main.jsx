@@ -6,11 +6,13 @@ import {
 } from 'react-router-dom';
 import Root from './routes/root';
 import ErrorPage from './error-page';
-import NewBallot, { action as newAction } from './routes/new';
+import NewBallot, { 
+    action as newAction 
+} from './routes/new';
 import Ballot, { 
     loader as ballotLoader 
-} from './routes/ballot';
-import VoteBallot, { 
+} from './routes/show';
+import EditBallot, { 
     loader as voteBallotLoader, 
     action as voteBallotAction 
 } from './routes/edit';
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
                 path: '/vote/:ballotId',
                 action: voteBallotAction,
                 loader: voteBallotLoader,
-                element: <VoteBallot />,
+                element: <EditBallot />,
             },
         ]
     },
