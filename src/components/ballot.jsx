@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import ClipboardButton from './clipboardButton';
-import { formatTimeLeft } from '../utils';
+import { calculateExpiry, formatTimeLeft } from '../utils';
 
 export default function Ballot({ ballot }) {
 
-    const [secondsLeft, setSecondsLeft] = useState(ballot.exp_s - ballot.seconds_since_creation);
+    const [secondsLeft, setSecondsLeft] = useState(calculateExpiry(ballot));
     let intervalRef = useRef();
 
     // const debug = {
@@ -21,8 +21,15 @@ export default function Ballot({ ballot }) {
         return () => clearInterval(intervalRef.current);
     }, []);
 
-    const renderResponses = responses => {
-        return responses.map(r => (
+    useEffect(() => {
+        if (secondsLeft <= 0) {
+            setSecondsLeft(0);
+            clearInterval(intervalRef.current);
+        }
+    }, [secondsLeft]);
+
+    const renderResponses = () => {
+        return ballot.responses.map(r => (
             <div className='responses' key={r.pubId}>
                 <h2 className='response-title'>{r.content}</h2>
                 <p>Votes: {r.votes}</p>
@@ -34,7 +41,7 @@ export default function Ballot({ ballot }) {
             <h1>{ballot.title}</h1>
             <ClipboardButton />
             <p id='time-left'>{formatTimeLeft(secondsLeft)}</p>
-            {renderResponses(ballot.responses)}
+            {renderResponses()}
         </div>
     );
 }

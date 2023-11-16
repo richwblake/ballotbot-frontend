@@ -1,22 +1,11 @@
-import { formatTimeLeft } from '../utils';
+import { calculateExpiry, formatTimeLeft } from '../utils';
 import { useState, useRef, useEffect } from 'react';
 import { Form } from 'react-router-dom';
 import ClipboardButton from '../components/clipboardButton';
 import Ballot from '../components/ballot';
 
 export default function VoteForm({ ballot }) {    
-
-    const calculateExpiry = ballot => {
-        const secondsSinceCreation = Math.floor((new Date() - new Date(ballot.created_utc)) / 1000);
-        
-        const timeLeft = ballot.exp_s - secondsSinceCreation;
-
-        return timeLeft <= 0 ? 0 : timeLeft;
-    };
-
-    const [secondsLeft, setSecondsLeft] = useState(1);
-
-    console.log(secondsLeft);
+    const [secondsLeft, setSecondsLeft] = useState(calculateExpiry(ballot));
 
     let intervalRef = useRef();
 
@@ -62,7 +51,7 @@ export default function VoteForm({ ballot }) {
                 </Form>
             );
         } else {
-            return ballot.pubId ? <Ballot id={ballot.pubId} /> : "";
+            return <Ballot ballot={ballot} />;
         }
     };
 
