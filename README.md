@@ -20,6 +20,7 @@ BallotBot is a React application designed to simplify the voting process by prov
 
 ## Project Structure
 
+```
 ballotbot/
 |-- src/
 |   |-- components/
@@ -40,6 +41,7 @@ ballotbot/
 |-- package.json
 |-- package-lock.json
 |-- README.md
+```
 
 - `src/`: Contains all source files
     - `components/`: Contains all standalone React components that comprise the different views of the application
