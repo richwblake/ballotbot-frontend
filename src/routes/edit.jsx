@@ -1,7 +1,7 @@
 import { useLoaderData, Form, redirect } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
-import Ballot from '../components/Ballot';
-import VoteForm from '../components/VoteForm';
+import Ballot from '../components/ballot';
+import VoteForm from '../components/voteForm';
 import ClipboardButton from '../components/clipboardButton';
 import { fetchBallotById, formatTimeLeft } from '../utils';
 
