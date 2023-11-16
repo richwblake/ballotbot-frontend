@@ -12,6 +12,11 @@ export async function loader({ params }) {
 export async function action({ request, params }) {
     const formData = await request.formData();
     const voteInfo = Object.fromEntries(formData);
+    
+    if (!voteInfo.picked) {
+        return null;
+    }
+
     return updateResponsePatchRequest(params.ballotId, voteInfo.picked);
 }
 
