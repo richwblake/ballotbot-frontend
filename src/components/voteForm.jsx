@@ -9,15 +9,6 @@ export default function VoteForm({ ballot }) {
 
     let intervalRef = useRef();
 
-    // const debug = {
-    //     ballot_created: new Date(ballot.created_utc),
-    //     now: new Date(),
-    // };
-    // console.log("Ballot created at: " + debug.ballot_created);
-    // console.log("Right now: " + debug.now);
-    // console.log("Time since creation in seconds: " + (debug.now - debug.ballot_created) / 1000);
-
-
     useEffect(() => {
         intervalRef.current = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
 
