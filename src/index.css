@@ -155,3 +155,9 @@ li:hover {
 #intro-message {
     font-size: 1.5rem;
 }
+
+.winner {
+    background: #1B4965;
+    color: white;
+    border: 3px solid white;
+}   
